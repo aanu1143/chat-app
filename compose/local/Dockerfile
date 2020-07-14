@@ -3,6 +3,7 @@ FROM python:3.8.2
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV REDIS_HOST "redis"
 
 RUN apt-get update \
   # dependencies for building Python packages
