@@ -1,8 +1,74 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+.nav {
+    background-color: rgb(174, 0, 255);
+    width: 100%;
+    height: 200px;
+}
+
+
 .chat-container {
+    padding: 5%;
+    position: relative;
+    top: -100px;
+    left: 15%;
+    background-color: rgb(248, 238, 248);
+    height: 70vh;
+    width: 70%;
+    border-radius: 10px;
+}
+
+.chat-container li {
+    list-style-type: none;
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 400px;
-    height: 600px;
-    border: 1px solid;
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sent {
+    width: 100px;
+    background: white;
+    text-align: right;
+    padding: 6px;
+    padding-right: 13px;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.replies {
+    width: 100px;
+    height: 30px;
+    background: white;
+    padding: 6px;
+    padding-left: 13px;
+    border-radius: 5px;
+}
+
+.input {
+    position: relative;
+    left: 232px;
+    top: -150px;
+}
+
+.input input[type= text] {
+    height: 35px;
+    font-size: 27px;
+    width: 50%;
+}
+
+.input input[type= button] {
+    height: 32px;
+    font-size: 20px;
 }
