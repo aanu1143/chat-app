@@ -2,26 +2,31 @@ from django.contrib.auth import get_user_model
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import json
-from .models import Message
+from .views import get_last_10_messages, get_user_contact, get_current_chat
+from .models import Message, Chat, Contact
 
 User = get_user_model()
 
 class ChatConsumer(WebsocketConsumer):
 
     def fetch_messages(self, data):
-        messages = Message.last_10_messages()
-        content = {
-            'command': 'messages',
-            'messages': self.messages_to_json(messages)
-        }
-        self.send_message(content)
+        print(data)
+        # messages = get_last_10_messages(data['chatId'])
+        # content = {
+        #     'command': 'messages',
+        #     'messages': self.messages_to_json(messages)
+        # }
+        # self.send_message(content)
 
     def new_message(self, data):
-        author = data['from']
-        author_user = User.objects.filter(username=author)[0]
+        print(data, "new")
+        user_contact = get_user_contact(data['from'])
         message = Message.objects.create(
-            author=author_user, 
+            contact=user_contact, 
             content=data['message'])
+        # current_chat = get_current_chat(data['chatId'])
+        # current_chat.messages.add(message)
+        # current_chat.save()
         content = {
             'command': 'new_message',
             'message': self.message_to_json(message)
@@ -36,7 +41,8 @@ class ChatConsumer(WebsocketConsumer):
 
     def message_to_json(self, message):
         return {
-            'author': message.author.username,
+            'id': message.id,
+            'contact': message.contact.user.username,
             'content': message.content,
             'timestamp': str(message.timestamp)
         }

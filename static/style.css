@@ -1,11 +1,9 @@
 * {
     box-sizing: border-box;
-}
-
-body {
     margin: 0;
     padding: 0;
 }
+
 
 
 .nav {
@@ -14,61 +12,95 @@ body {
     height: 200px;
 }
 
-
-.chat-container {
-    padding: 5%;
+.main {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     position: relative;
     top: -100px;
-    left: 15%;
-    background-color: rgb(248, 238, 248);
-    height: 70vh;
-    width: 70%;
-    border-radius: 10px;
 }
 
-.chat-container li {
-    list-style-type: none;
-    display: flex;
-    align-items: center;
+.chat-container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    width: 70%;
+    border: 3px solid forestgreen;
+    height: 80vh;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.side-panel {
+    border-right: 2px solid red;
+    padding: 8px;
+}
+.side-panel h3 {
+    border: 1px solid rebeccapurple;
+    padding: 10px;
+    margin: 5px;
+}
+
+.chat-panel {
+    display: grid;
+    grid-template-rows: 6% 88% 8%;
+    padding-bottom: 15px;
+    max-height: -webkit-fill-available;
+}
+
+.header {
+    width: 100%;
+    background-color: aquamarine;
+    height: 40px;
+    text-align: center;
+    border-bottom: 1px solid;
+}
+
+.msg {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.left {
+    border: 0.5px solid rgb(173, 171, 171);
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    float: left;
+    padding: 7px;
+    max-width: 60%;
 }
 
 .right {
-    display: flex;
-    justify-content: flex-end;
+    border: 0.5px solid rgb(173, 171, 171);
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+    float: right;
+    padding: 7px;
+    max-width: 60%;
 }
 
-.sent {
-    width: 100px;
-    background: white;
-    text-align: right;
-    padding: 6px;
-    padding-right: 13px;
-    border-radius: 5px;
-    height: 30px;
+.header h2 {
+    padding: 3px;
+    color: red;
 }
 
-.replies {
-    width: 100px;
-    height: 30px;
-    background: white;
-    padding: 6px;
-    padding-left: 13px;
-    border-radius: 5px;
+.chat-box {
+    padding: 10px;
+    overflow-y: scroll;
+    border-bottom: 0.5px solid rgb(173, 171, 171);
 }
 
 .input {
-    position: relative;
-    left: 232px;
-    top: -150px;
+    padding: 0.5em;
+    margin: auto;
 }
 
-.input input[type= text] {
-    height: 35px;
-    font-size: 27px;
-    width: 50%;
-}
-
-.input input[type= button] {
-    height: 32px;
-    font-size: 20px;
+@media screen and (max-width: 600px) {
+    .main {
+        position: absolute;
+        top: 0px;
+    }
+    .chat-container {
+        width: 100%;
+        border-radius: 0;
+    } 
 }

@@ -1,16 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Chat Room</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
-    <div class="nav-bar">
-        <div class="nav">
-        </div>
+{% block content %}
         <div class="chat-container" id="chat">
             <ul id="chatlist">
             </ul>
@@ -19,8 +10,6 @@
             <input id="chat-message-input" type="text" size="100">
             <input id="chat-message-submit" type="button" value="Send">
         </div>
-    </div>
-    
     
 
     <script src="{% static 'reconnecting-websocket.js' %}"></script>
@@ -57,7 +46,7 @@
         };
 
         document.querySelector('#chat-message-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // keycode of enter=13, return
+            if (e.keyCode === 13) { 
                 document.querySelector('#chat-message-submit').click();
             }
         };
@@ -68,8 +57,7 @@
             chatSocket.send(JSON.stringify({
                 'message': message, 
                 'command': 'new_message',
-                'from': username,
-                'group': roomName
+                'from': username
             }));
             messageInputDom.value = '';
         };
@@ -81,21 +69,19 @@
         }
 
         function createMessage(data) {
-            var author = data['author'];
+            var contact = data['contact'];
             var litag = document.createElement('li');
             var ptag = document.createElement('p');
             ptag.textContent = data.content;
-            if (author === username) {
+            if (contact === username) {
                 litag.className = "right";
                 ptag.className = 'sent';
             } else {
                 ptag.className = 'replies';
             }
-            ptag.className += ' wrap';
             litag.appendChild(ptag);
             document.querySelector('#chatlist').appendChild(litag);
         }
 
     </script>
-</body>
-</html>
+{% endblock content %}
