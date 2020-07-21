@@ -10,7 +10,8 @@ User = get_user_model()
 @login_required
 def index(request):
     context_dict = {
-        'friends': Contact.objects.all().exclude(user__username=request.user.username)
+        'friends': Contact.objects.all().exclude(user__username=request.user.username),
+        'username': mark_safe(json.dumps(request.user.username)),
     }
     return render(request, 'index.html', context_dict)
 

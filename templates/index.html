@@ -18,101 +18,11 @@
                     <h2>Anand</h2>
                 </div>
                 <div class="chat-box" id="chat-box">
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
-                    <div class="msg">
-                        <div class="left">Hii</div>
-                    </div>
-                    <div class="msg">
-                        <div class="right">Hello</div>
-                    </div>
                 </div>
-                <div class="input"> 
-                    <form id="msg-form">
-                        <input type="text" id="msg">
-                        <button type="submit">Send </button>
-                    </form>
-                </div>
-                 <!-- <div class="input">
-                    <input id="chat-message-input" type="text" size="100">
+                <div class="input">
+                    <input type="text" size="100" id="chat-message-input" >
                     <input id="chat-message-submit" type="button" value="Send">
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -120,14 +30,11 @@
 
     <script src="{% static 'reconnecting-websocket.js' %}"></script>
     <script>
-        var roomName = {{ room_name_json }};
         var username = {{ username }};
-        const chatSocket = new ReconnectingWebSocket(
+        const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
+            + '/ws/chat/room/'
         );
 
         chatSocket.onopen = function(e) {
@@ -163,7 +70,8 @@
             chatSocket.send(JSON.stringify({
                 'message': message, 
                 'command': 'new_message',
-                'from': username
+                'from': username,
+                'to': 'anand'
             }));
             messageInputDom.value = '';
         };
@@ -176,17 +84,17 @@
 
         function createMessage(data) {
             var contact = data['contact'];
-            var litag = document.createElement('li');
-            var ptag = document.createElement('p');
-            ptag.textContent = data.content;
+            var divtag = document.createElement('div');
+            var innerdivtag = document.createElement('div');
+            innerdivtag.textContent = data.content;
             if (contact === username) {
-                litag.className = "right";
-                ptag.className = 'sent';
+                innerdivtag.className = "right";
             } else {
-                ptag.className = 'replies';
+                innerdivtag.className = 'left';
             }
-            litag.appendChild(ptag);
-            document.querySelector('#chatlist').appendChild(litag);
+            divtag.className = 'msg';
+            divtag.appendChild(innerdivtag);
+            document.querySelector('#chat-box').appendChild(divtag);
         }
 
     </script>

@@ -16,6 +16,8 @@ class Contact(models.Model):
 class Message(models.Model):
     contact = models.ForeignKey(
         Contact, related_name='messages', on_delete=models.CASCADE)
+    auther = models.ForeignKey(
+        Contact, related_name='message', on_delete=models.CASCADE, null=True)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 

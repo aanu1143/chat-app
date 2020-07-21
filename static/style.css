@@ -94,6 +94,10 @@
     margin: auto;
 }
 
+.input input[type=text] {
+    width: 90%;
+}
+
 @media screen and (max-width: 600px) {
     .main {
         position: absolute;

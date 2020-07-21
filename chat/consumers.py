@@ -10,7 +10,7 @@ User = get_user_model()
 class ChatConsumer(WebsocketConsumer):
 
     def fetch_messages(self, data):
-        print(data)
+        print(data, 'asb')
         # messages = get_last_10_messages(data['chatId'])
         # content = {
         #     'command': 'messages',
@@ -19,7 +19,7 @@ class ChatConsumer(WebsocketConsumer):
         # self.send_message(content)
 
     def new_message(self, data):
-        print(data, "new")
+        # print(data, "new")
         user_contact = get_user_contact(data['from'])
         message = Message.objects.create(
             contact=user_contact, 
@@ -53,8 +53,8 @@ class ChatConsumer(WebsocketConsumer):
     }
 
     def connect(self):
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_group_name = 'chat_%s' % self.room_name
+        self.room_group_name = 'chat'
+        print(self.room_group_name)
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name
