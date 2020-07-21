@@ -11,22 +11,23 @@ class ChatConsumer(WebsocketConsumer):
 
     def fetch_messages(self, data):
         print(data, 'asb')
-        # messages = get_last_10_messages(data['chatId'])
-        # content = {
-        #     'command': 'messages',
-        #     'messages': self.messages_to_json(messages)
-        # }
-        # self.send_message(content)
+        messages = get_last_10_messages(data['chat_id'])
+        content = {
+            'command': 'messages',
+            'messages': self.messages_to_json(messages)
+        }
+        self.send_message(content)
 
     def new_message(self, data):
-        # print(data, "new")
+        print(data, "new")
         user_contact = get_user_contact(data['from'])
         message = Message.objects.create(
-            contact=user_contact, 
+            contact=user_contact,
             content=data['message'])
-        # current_chat = get_current_chat(data['chatId'])
-        # current_chat.messages.add(message)
-        # current_chat.save()
+        current_chat = get_current_chat(data['chat_id'])
+        print(message)
+        current_chat.messages.add(message)
+        current_chat.save()
         content = {
             'command': 'new_message',
             'message': self.message_to_json(message)
@@ -53,17 +54,17 @@ class ChatConsumer(WebsocketConsumer):
     }
 
     def connect(self):
-        self.room_group_name = 'chat'
-        print(self.room_group_name)
+        self.chat_id = self.scope['url_route']['kwargs']['chat_id']
+        self.chat_group_name = 'chat_%s' % self.chat_id
         async_to_sync(self.channel_layer.group_add)(
-            self.room_group_name,
+            self.chat_group_name,
             self.channel_name
         )
         self.accept()
 
     def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)(
-            self.room_group_name,
+            self.chat_group_name,
             self.channel_name
         )
 
@@ -74,7 +75,7 @@ class ChatConsumer(WebsocketConsumer):
 
     def send_chat_message(self, message):    
         async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
+            self.chat_group_name,
             {
                 'type': 'chat_message',
                 'message': message

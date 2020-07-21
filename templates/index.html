@@ -10,7 +10,7 @@
         <div class="chat-container" id="chat">
             <div class="side-panel">
                 {% for friend in friends %}
-                <h3>{{ friend }}</h3>
+                <h3 id="friend">{{ friend }}</h3>
                 {% endfor %}
             </div>
             <div class="chat-panel">
@@ -30,11 +30,16 @@
 
     <script src="{% static 'reconnecting-websocket.js' %}"></script>
     <script>
+
+
+        var chat_id = {{ chat_id }}
         var username = {{ username }};
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
-            + '/ws/chat/room/'
+            + '/ws/chat/'
+            + chat_id
+            + '/'
         );
 
         chatSocket.onopen = function(e) {
@@ -71,14 +76,15 @@
                 'message': message, 
                 'command': 'new_message',
                 'from': username,
-                'to': 'anand'
+                'chat_id': chat_id
             }));
             messageInputDom.value = '';
         };
 
         function fetchMessages() {
             chatSocket.send(JSON.stringify({
-                'command': 'fetch_messages'
+                'command': 'fetch_messages',
+                'chat_id': chat_id
                  }));
         }
 

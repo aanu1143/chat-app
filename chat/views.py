@@ -8,24 +8,25 @@ import json
 User = get_user_model()
 
 @login_required
-def index(request):
+def index(request, chat_id):
     context_dict = {
+        'chat_id': mark_safe(json.dumps(chat_id)),
         'friends': Contact.objects.all().exclude(user__username=request.user.username),
         'username': mark_safe(json.dumps(request.user.username)),
     }
     return render(request, 'index.html', context_dict)
 
 @login_required
-def room(request, room_name):
+def room(request, chat_id):
     return render(request, 'room.html', {
-        'room_name_json': mark_safe(json.dumps(room_name)),
+        'room_name_json': mark_safe(json.dumps(chat_id)),
         'username': mark_safe(json.dumps(request.user.username)),
     })
 
 
 def get_last_10_messages(chatId):
     chat = get_object_or_404(Chat, id=chatId)
-    return chat.messages.order_by('-timestamp').all()[:10]
+    return chat.messages.order_by('timestamp').all()[:10]
 
 
 def get_user_contact(username):
