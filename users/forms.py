@@ -8,9 +8,9 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.CharField(required=True, widget=forms.EmailInput())
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'email', 'status')
+        fields = ('username', 'first_name', 'last_name')
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'email', 'status')
+        fields = ('first_name', 'last_name')

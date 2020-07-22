@@ -7,6 +7,7 @@
     
     <title>{% block title %}Whats Chat{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {% block style %}
     {% endblock style %}
@@ -15,14 +16,19 @@
 
     <div class="nav-bar">
         <div class="nav">
-            <div class="detail">
-                {% if user.is_authenticated %}
-                <p>Hi {{ user.username }}!</p>
-                <p><a href="{% url 'logout' %}">Log out</a></p>
-                {% else %}
-                <p>You are not logged in.</p>
-                <a href="{% url 'login' %}">Log In</a>
-                {% endif %}
+            <div class="head">
+                <div class="logo">
+                    <p style="letter-spacing: 5px;">Whats-Chat</p>
+                </div>
+                <div class="detail">
+                    {% if user.is_authenticated %}
+                    <a href="#">{{ user.username }}</a>
+                    <a href="{% url 'logout' %}">Log out</a>
+                    {% else %}
+                    <a href="{% url 'signup' %}">Signup</a>
+                    <a href="{% url 'login' %}">Log In</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
