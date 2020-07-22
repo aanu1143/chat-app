@@ -47,6 +47,7 @@ class ChatConsumer(WebsocketConsumer):
         return {
             'id': message.id,
             'contact': message.contact.username,
+            'recipient':message.recipient.username,
             'content': message.content,
             'timestamp': str(message.timestamp)
         }

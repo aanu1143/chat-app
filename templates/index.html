@@ -37,6 +37,7 @@
             let ele = event.target;
             $(ele).addClass('active');
             setCurrentRecipient(ele.innerHTML);
+            removeChild();
             fetchMessages();
         })
 
@@ -100,6 +101,11 @@
                 'from': username,
                 'to':recipient
                  }));
+        }
+
+        function removeChild(){
+            var x = document.getElementById('chat-box');
+            x.textContent='';
         }
 
         function createMessage(data) {
