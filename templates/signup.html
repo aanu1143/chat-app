@@ -4,13 +4,15 @@
 {% block title %}Log in{% endblock %}
 
 {% block content %}
-<div class="logincontainer" style="display:flex;justify-content:center;align-items:center;flex-direction: column;">
+<div class="logincontainer">
         <div class="loginclass">
-            <h2>Log In</h2>
+            <p style="text-align: center; font-size: 30px; font-weight: 500;">Create Account</p>
             <form method="post" class="signupform">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Log In</button>
+                <div class="btn">
+                    <button type="submit" class="loginbtn">Sign Up</button>
+                </div>
             </form>
         </div>
     </div>

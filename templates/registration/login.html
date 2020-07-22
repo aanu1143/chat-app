@@ -5,12 +5,16 @@
 {% block content %}
 <div class="logincontainer">
         <div class="loginclass">
-            <h2>Log In</h2>
+            <p style="text-align: center; font-size: 30px; font-weight: 500;">Welcome Back!</p>
             <form method="post" class="loginform">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Log In</button>
-                <p>Not registered yet?<a href="{% url 'signup' %}">Signup</a> here</p>
+                <div class="btn">
+                    <button type="submit" class="loginbtn">Log In</button>
+                </div>
+                <div class="btm">
+                    <p>Not registered yet? <a href="{% url 'signup' %}">Signup</a> here</p>
+                </div>
             </form>
         </div>
     </div>

@@ -5,10 +5,16 @@ from .models import CustomUser
 from django.contrib.auth.models import User
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.CharField(required=True, widget=forms.EmailInput())
     class Meta(UserCreationForm.Meta):
         model = CustomUser
         fields = ('username', 'first_name', 'last_name')
+    
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+
+        for fieldname in ['username', 'password1', 'password2', 'first_name', 'last_name']:
+            self.fields[fieldname].help_text = None
+            # self.fields[fieldname].label = ''
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
