@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block title %}Log in{% endblock %}
@@ -6,11 +7,10 @@
 <div class="logincontainer" style="display:flex;justify-content:center;align-items:center;flex-direction: column;">
         <div class="loginclass">
             <h2>Log In</h2>
-            <form method="post" class="loginform">
+            <form method="post" class="signupform">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-primary">Log In</button>
-                <p>Not registered yet?<a href="{% url 'signup' %}">Signup</a> here</p>
             </form>
         </div>
     </div>
