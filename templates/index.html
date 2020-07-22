@@ -8,14 +8,14 @@
 {% block content %}
     <div class="main">
         <div class="chat-container" id="chat">
-            <div class="side-panel">
+            <div class="side-panel" id="user-list">
                 {% for friend in friends %}
-                <h3 id="friend">{{ friend }}</h3>
+                <h3 class="friend">{{ friend }}</h3>
                 {% endfor %}
             </div>
             <div class="chat-panel">
                 <div class="header">
-                    <h2>Anand</h2>
+                    <h2 class="heading">Select user to chat</h2>
                 </div>
                 <div class="chat-box" id="chat-box">
                 </div>
@@ -30,20 +30,33 @@
 
     <script src="{% static 'reconnecting-websocket.js' %}"></script>
     <script>
+        let userList = $('#user-list');
+        let chatHeading = $('.heading');
+        $('.friend').click(function () {
+            userList.children('.active').removeClass('active');
+            let ele = event.target;
+            $(ele).addClass('active');
+            setCurrentRecipient(ele.innerHTML);
+            fetchMessages();
+        })
 
+        var recipient = '';
+        function setCurrentRecipient(userName) {
+            chatHeading[0].innerHTML = userName;
+            recipient = userName;
+        }
 
-        var chat_id = {{ chat_id }}
+        
         var username = {{ username }};
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
             + '/ws/chat/'
-            + chat_id
-            + '/'
+            + 'room/'
         );
 
         chatSocket.onopen = function(e) {
-            fetchMessages();
+            console.log("Connection Open");
         }
 
 
@@ -76,7 +89,7 @@
                 'message': message, 
                 'command': 'new_message',
                 'from': username,
-                'chat_id': chat_id
+                'to': recipient
             }));
             messageInputDom.value = '';
         };
@@ -84,7 +97,8 @@
         function fetchMessages() {
             chatSocket.send(JSON.stringify({
                 'command': 'fetch_messages',
-                'chat_id': chat_id
+                'from': username,
+                'to':recipient
                  }));
         }
 

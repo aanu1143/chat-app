@@ -1,32 +1,18 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Q
 
 User = get_user_model()
 
-
-class Contact(models.Model):
-    user = models.ForeignKey(
-        User, related_name='friends', on_delete=models.CASCADE)
-    friends = models.ManyToManyField('self', blank=True)
-
-    def __str__(self):
-        return self.user.username
-
-
 class Message(models.Model):
-    contact = models.ForeignKey(
-        Contact, related_name='messages', on_delete=models.CASCADE)
+    contact = models.ForeignKey(User, related_name='messages', on_delete=models.CASCADE)
+    recipient = models.ForeignKey(User, related_name="receipant", on_delete=models.CASCADE)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.contact.user.username
+        return self.content
 
-
-class Chat(models.Model):
-    participants = models.ManyToManyField(
-        Contact, related_name='chats', blank=True)
-    messages = models.ManyToManyField(Message, blank=True)
-
-    def __str__(self):
-        return "{}".format(self.pk)
+    def last_10_messages(form, to):
+        messages = Message.objects.order_by('timestamp').all()
+        return messages.filter(Q(recipient=form, contact=to) | Q(contact=form, recipient=to))

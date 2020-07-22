@@ -38,6 +38,12 @@
     border: 1px solid rebeccapurple;
     padding: 10px;
     margin: 5px;
+    cursor: pointer;
+}
+
+.active {
+    background-color: black;
+    color: white;
 }
 
 .chat-panel {
