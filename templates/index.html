@@ -13,15 +13,21 @@
                 <h3 class="friend">{{ friend }}</h3>
                 {% endfor %}
             </div>
-            <div class="chat-panel">
-                <div class="header">
-                    <p class="heading">Select user to chat</p>
+            <div class="chat-panel" id="chat-panel">
+                <div class="chat-one">
+                    <div class="header">
+                        <p class="heading">Select user to chat</p>
+                    </div>
+                    <div class="chat-box" id="chat-box">
+                    </div>
+                    <div class="input">
+                        <input type="text" size="100" id="chat-message-input" placeholder="Type message here...">
+                        <img src="{% static 'send.svg' %}" id="chat-message-submit" alt="error">
+                        <!-- <input id="chat-message-submit" type="button" value="Send"> -->
+                    </div>
                 </div>
-                <div class="chat-box" id="chat-box">
-                </div>
-                <div class="input">
-                    <input type="text" size="100" id="chat-message-input" >
-                    <input id="chat-message-submit" type="button" value="Send">
+                <div class="chat-two">
+                    <h1>select user +</h1>
                 </div>
             </div>
         </div>
@@ -32,7 +38,14 @@
     <script>
         let userList = $('#user-list');
         let chatHeading = $('.heading');
+        let chatPanel = $('#chat-panel');
+        let chatOne = $('.chat-one');
+        let chatTwo = $('.chat-two');
+
+
         $('.friend').click(function () {
+            chatOne[0].style.display="grid";
+            chatTwo[0].style.display="none";
             userList.children('.active').removeClass('active');
             let ele = event.target;
             $(ele).addClass('active');
@@ -40,6 +53,11 @@
             removeChild();
             fetchMessages();
         })
+
+        if (userList.children('.active').length===0) {
+            chatOne[0].style.display="none";
+            chatTwo[0].style.display="flex";
+        }
 
         var recipient = '';
         function setCurrentRecipient(userName) {
@@ -49,7 +67,7 @@
 
         
         var username = {{ username }};
-        const chatSocket = new WebSocket(
+        const chatSocket = new ReconnectingWebSocket(
             'ws://'
             + window.location.host
             + '/ws/chat/'
