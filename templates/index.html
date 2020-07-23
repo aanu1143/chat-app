@@ -11,7 +11,7 @@
             <div class="side-panel" id="user-list">
                 <div class="user-detail">
                     <img src="{% static 'avatar.png' %}" alt="error">
-                    <p style="border: 0; font-size: 20px; cursor: default;" id="name">{{ user.first_name }} {{ user.last_name }}</p>
+                    <p style="border: 0; font-size: 20px; cursor: pointer;" id="name">{{ user.first_name }} {{ user.last_name }}</p>
                     <span class="resp-list" id="resp"><img src="{% static 'add.png' %}" alt=""></span>
                 </div>
                 <div class="logout">
@@ -169,11 +169,43 @@
             objDiv.scrollTop = objDiv.scrollHeight;
         }
 
+        function timeCal(timestamp) {
+            let currentTimeUtc = new Date(timestamp);
+            let paci = currentTimeUtc.getHours();
+            let pacific = '';
+            if (paci>12) {
+                pacific = "PM";
+                currentTimeUtc.setHours(paci-12);
+            }
+            else {
+                pacific = "AM";
+            }
+            let time = currentTimeUtc.toTimeString().slice(0, 5);
+            let prefix = ''; 
+            const timeDiff = Math.round((new Date().getTime() - new Date(timestamp).getTime())/60000);
+            if (timeDiff < 1) { 
+                prefix = 'just now';
+            } else if (timeDiff < 60 && timeDiff > 1) { 
+                prefix = `${time} ${pacific}`;
+            } else if (timeDiff < 24*60 && timeDiff > 60) { 
+                prefix = `${time} ${pacific}`;
+            } else if (timeDiff < 31*24*60 && timeDiff > 24*60) {
+                prefix = `${Math.round(timeDiff/(60*24))} days ago`;
+            } else {
+                prefix = `${new Date(timestamp)}`;
+            }
+            return prefix
+        }
+        
         function createMessage(data) {
+            var time = timeCal(data.timestamp);
             var contact = data['contact'];
             var divtag = document.createElement('div');
             var innerdivtag = document.createElement('div');
+            var ptag = document.createElement('p');
+            ptag.textContent = time;
             innerdivtag.textContent = data.content;
+            innerdivtag.appendChild(ptag);
             if (contact === username) {
                 innerdivtag.className = "right";
             } else {
