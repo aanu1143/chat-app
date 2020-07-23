@@ -14,7 +14,8 @@ class CustomUserCreationForm(UserCreationForm):
 
         for fieldname in ['username', 'password1', 'password2']:
             self.fields[fieldname].help_text = None
-            # self.fields[fieldname].label = ''
+            if fieldname=="password2":
+                self.fields[fieldname].label = 'Re-Enter'
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:

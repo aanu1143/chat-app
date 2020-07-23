@@ -9,14 +9,21 @@
     <div class="main">
         <div class="chat-container" id="chat">
             <div class="side-panel" id="user-list">
-                {% for friend in friends %}
-                <h3 class="friend">{{ friend }}</h3>
-                {% endfor %}
+                <div class="user-detail">
+                    <img src="{% static 'avatar.png' %}" alt="error">
+                    <p style="border: 0; font-size: 20px; cursor: default;">{{ user.first_name }} {{ user.last_name }}</p>
+                    <span class="resp-list" id="resp"><img src="{% static 'add.png' %}" alt=""></span>
+                </div>
+                <div id="friend-list">
+                    {% for friend in friends %}
+                    <p class="friend">{{ friend }}</p>
+                    {% endfor %}
+                </div>
             </div>
             <div class="chat-panel" id="chat-panel">
                 <div class="chat-one">
                     <div class="header">
-                        <p class="heading">Select user to chat</p>
+                        <p class="heading"></p>
                     </div>
                     <div class="chat-box" id="chat-box">
                     </div>
@@ -26,7 +33,7 @@
                         <!-- <input id="chat-message-submit" type="button" value="Send"> -->
                     </div>
                 </div>
-                <div class="chat-two">
+                <div class="chat-two" id="chat-two">
                     <h1>select user +</h1>
                 </div>
             </div>
@@ -36,16 +43,32 @@
 
     <script src="{% static 'reconnecting-websocket.js' %}"></script>
     <script>
-        let userList = $('#user-list');
+        let userList = $('#friend-list');
         let chatHeading = $('.heading');
         let chatPanel = $('#chat-panel');
         let chatOne = $('.chat-one');
         let chatTwo = $('.chat-two');
+        let addBtn = $("#resp");
 
+        chatTwo.click(function () {
+            userList[0].style.display="block";
+        })
+
+        addBtn.click(function () {
+            if (userList[0].style.display==="none" || userList[0].style.display==="") {
+                userList[0].style.display="block";
+            }
+            else {
+                userList[0].style.display="none";
+            }
+        })
 
         $('.friend').click(function () {
             chatOne[0].style.display="grid";
             chatTwo[0].style.display="none";
+            if (screen.width<600) {
+                userList[0].style.display="none";
+            }
             userList.children('.active').removeClass('active');
             let ele = event.target;
             $(ele).addClass('active');

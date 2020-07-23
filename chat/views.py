@@ -11,6 +11,7 @@ User = get_user_model()
 def index(request):
     context_dict = {
         'friends': User.objects.all().exclude(username=request.user.username),
+        'user': request.user,
         'username': mark_safe(json.dumps(request.user.username)),
     }
     return render(request, 'index.html', context_dict)
