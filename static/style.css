@@ -81,8 +81,7 @@ body {
 
 .chat-one {
     display: grid;
-    grid-template-rows: 6% 88% 8%;
-    padding-bottom: 15px;
+    grid-template-rows: 7% 85% 60px;
     max-height: -webkit-fill-available;
     height: 100%;
 }
@@ -115,6 +114,8 @@ body {
     float: right;
     padding: 7px;
     max-width: 60%;
+    background-color: blueviolet;
+    color: white;
 }
 
 .header h2 {
@@ -250,4 +251,19 @@ body {
 
 .resp-list {
     display: none;
+}
+
+.logout {
+    display: none;
+    text-align: center;
+    border-bottom: 1px solid rgba(188, 1, 245, 0.6);
+    padding: 10px;
+}
+
+.logout a {
+    text-decoration: none;
+}
+
+.logout:hover {
+    background-color: rgb(188, 1, 245);
 }

@@ -11,8 +11,11 @@
             <div class="side-panel" id="user-list">
                 <div class="user-detail">
                     <img src="{% static 'avatar.png' %}" alt="error">
-                    <p style="border: 0; font-size: 20px; cursor: default;">{{ user.first_name }} {{ user.last_name }}</p>
+                    <p style="border: 0; font-size: 20px; cursor: default;" id="name">{{ user.first_name }} {{ user.last_name }}</p>
                     <span class="resp-list" id="resp"><img src="{% static 'add.png' %}" alt=""></span>
+                </div>
+                <div class="logout">
+                    <a href="{% url 'logout' %}">Log out</a>
                 </div>
                 <div id="friend-list">
                     {% for friend in friends %}
@@ -43,12 +46,23 @@
 
     <script src="{% static 'reconnecting-websocket.js' %}"></script>
     <script>
+        let nameUser = $("#name");
         let userList = $('#friend-list');
         let chatHeading = $('.heading');
         let chatPanel = $('#chat-panel');
         let chatOne = $('.chat-one');
         let chatTwo = $('.chat-two');
         let addBtn = $("#resp");
+        let logOut = $(".logout");
+
+        nameUser.click(function () {
+            if (logOut[0].style.display==="none" || logOut[0].style.display==="") {
+                logOut[0].style.display="block";
+            }
+            else {
+                logOut[0].style.display="none";
+            }
+        })
 
         chatTwo.click(function () {
             userList[0].style.display="block";
