@@ -5,6 +5,8 @@ services:
             context: .
             dockerfile: ./compose/local/Dockerfile
         command: /start
+        depends_on:
+            - redis
         volumes:
             - .:/code
         ports:
