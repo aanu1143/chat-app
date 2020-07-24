@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
+
+{% block title %}Whats Chat{% endblock %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'scroll.css' %}">
 {% endblock style %}
@@ -104,8 +106,9 @@
 
         
         var username = {{ username }};
+        var proto = window.location.protocol === "https:" ? "wss://" : "ws://";
         const chatSocket = new ReconnectingWebSocket(
-            'ws://'
+            proto
             + window.location.host
             + '/ws/chat/'
             + 'room/'

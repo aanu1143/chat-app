@@ -10,7 +10,7 @@ django-environ==0.4.5  # https://github.com/joke2k/django-environ
 django-model-utils==4.0.0  # https://github.com/jazzband/django-model-utils
 django-redis==4.12.1  # https://github.com/jazzband/django-redis
 
-psycopg2==2.8.5 --no-binary psycopg2  # https://github.com/psycopg/psycopg2
+psycopg2-binary==2.8.5  # https://github.com/psycopg/psycopg2
 
 channels~=2.0,>=2.0.2
 channels_redis~=2.0
