@@ -20,8 +20,8 @@ RUN apt-get update \
 # Set work directory
 WORKDIR /code
 # Install dependencies
-COPY ./requirements /requirements
-RUN pip install -r /requirements/local.txt
+
+RUN pip install -r /requirements.txt
 
 COPY ./compose/local/start /start
 RUN sed -i 's/\r$//g' /start
