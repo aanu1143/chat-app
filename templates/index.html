@@ -123,10 +123,10 @@
                 for (let i=0; i<data['messages'].length; i++) {
                     createMessage(data['messages'][i]);
                 }
-                scrollDown();
             } else if (data['command'] === 'new_message'){
                createMessage(message);
             }
+            scrollDown();
         };
 
         chatSocket.onclose = function(e) {
@@ -198,12 +198,13 @@
         }
         
         function createMessage(data) {
-            var time = timeCal(data.timestamp);
+            const timeSol = timeCal(data.timestamp);
+            console.log(timeSol);
             var contact = data['contact'];
             var divtag = document.createElement('div');
             var innerdivtag = document.createElement('div');
             var ptag = document.createElement('p');
-            ptag.textContent = time;
+            ptag.textContent = timeSol;
             innerdivtag.textContent = data.content;
             innerdivtag.appendChild(ptag);
             if (contact === username) {

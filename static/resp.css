@@ -1,9 +1,5 @@
 
 @media screen and (max-width: 600px) {
-    body {
-        background-color: white;
-        background-image: none;
-    }
     .nav {
         height: 150px;
     }
@@ -56,5 +52,9 @@
     .input {
         position: relative;
         bottom: 5px;
+    }
+    .chat-box {
+        background-color: #ffffff;
+        background-image: url("https://www.transparenttextures.com/patterns/brick-wall.png");
     }
 }
