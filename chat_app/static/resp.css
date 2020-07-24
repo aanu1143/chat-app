@@ -1,0 +1,60 @@
+
+@media screen and (max-width: 600px) {
+    .nav {
+        height: 150px;
+    }
+
+    .logo {
+        font-size: 17px;
+    }
+
+    .detail a{
+        font-size: 17px;
+    }
+    .main {
+        position: absolute;
+        top: 0px;
+        height: 100%;
+    }
+    .chat-container {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    } 
+    .chat-panel {
+        height: 92%;
+        max-height: 800px;
+    }
+    .logincontainer {
+        margin: 15px;
+    }
+    .loginclass {
+        margin-top: 30px;
+        padding: 20px;
+    }
+    .signupform input, .loginform input {
+        width: 150px;
+    }
+    .resp-list {
+        display: block;
+        margin-top: 5px;
+    }
+    .user-detail {
+        justify-content: space-between;
+        padding: 2% 3%;
+        background-color: #f2f0ff;
+    }
+    #friend-list {
+        display: none;
+    }
+    .input {
+        position: relative;
+        bottom: 5px;
+    }
+    .chat-box {
+        background-color: #ffffff;
+        background-image: url("https://www.transparenttextures.com/patterns/brick-wall.png");
+    }
+}
