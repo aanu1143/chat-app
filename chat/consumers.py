@@ -26,12 +26,10 @@ class ChatConsumer(WebsocketConsumer):
             contact=user_contact,
             recipient=sender,
             content=data['message'])
-        # current_chat = get_current_chat(data['chat_id'])
-        # print(message)
-        # current_chat.messages.add(message)
-        # current_chat.save()
         content = {
             'command': 'new_message',
+            'sender': data['to'],
+            'user': data['from'],
             'message': self.message_to_json(message)
         }
         return self.send_chat_message(content)

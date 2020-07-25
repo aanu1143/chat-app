@@ -127,7 +127,10 @@
                     createMessage(data['messages'][i]);
                 }
             } else if (data['command'] === 'new_message'){
-               createMessage(message);
+                if ((recipient === data['sender'] && username === data['user']) || (username === data['sender'] && recipient === data['user']) ) {
+                    createMessage(message);
+                }
+                    // console.log(data['sender'], recipient, data['user'], username);
             }
             scrollDown();
         };
@@ -195,14 +198,14 @@
             } else if (timeDiff < 31*24*60 && timeDiff > 24*60) {
                 prefix = `${Math.round(timeDiff/(60*24))} days ago`;
             } else {
-                prefix = `${new Date(timestamp)}`;
+                prefix = '';
             }
             return prefix
         }
         
         function createMessage(data) {
             const timeSol = timeCal(data.timestamp);
-            console.log(timeSol);
+            // console.log(timeSol);
             var contact = data['contact'];
             var divtag = document.createElement('div');
             var innerdivtag = document.createElement('div');
