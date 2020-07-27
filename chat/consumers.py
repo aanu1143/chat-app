@@ -22,17 +22,19 @@ class ChatConsumer(WebsocketConsumer):
     def new_message(self, data):
         user_contact = get_user_contact(data['from'])
         sender = get_user_contact(data['to'])
-        message = Message.objects.create(
-            contact=user_contact,
-            recipient=sender,
-            content=data['message'])
-        content = {
-            'command': 'new_message',
-            'sender': data['to'],
-            'user': data['from'],
-            'message': self.message_to_json(message)
-        }
-        return self.send_chat_message(content)
+        message = data['message']
+        if len(message)>0 and message!=" ":
+            message = Message.objects.create(
+                contact=user_contact,
+                recipient=sender,
+                content=data['message'])
+            content = {
+                'command': 'new_message',
+                'sender': data['to'],
+                'user': data['from'],
+                'message': self.message_to_json(message)
+            }
+            return self.send_chat_message(content)
 
     def messages_to_json(self, messages):
         result = []

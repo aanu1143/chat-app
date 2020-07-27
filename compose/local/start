@@ -7,5 +7,4 @@ set -o nounset
 
 python manage.py makemigrations
 python manage.py migrate
-gunicorn --bind :8000 --workers 3 chat-app.wsgi:application
-
+python manage.py runserver

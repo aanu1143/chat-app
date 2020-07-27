@@ -87,7 +87,7 @@ body {
 
 .chat-one {
     display: grid;
-    grid-template-rows: 5% 87% 60px;
+    grid-template-rows: 40px auto 60px;
     max-height: -webkit-fill-available;
     height: 100%;
 }
