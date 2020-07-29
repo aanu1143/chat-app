@@ -25,7 +25,7 @@
     } 
     .chat-panel {
         height: 92%;
-        max-height: 800px;
+        max-height: 1000px;
     }
     .logincontainer {
         margin: 15px;
@@ -56,5 +56,10 @@
     .chat-box {
         background-color: #ffffff;
         background-image: url("https://www.transparenttextures.com/patterns/brick-wall.png");
+    }
+
+    .left, .right {
+        padding: 7px 15px;
+        font-size: 13px;
     }
 }

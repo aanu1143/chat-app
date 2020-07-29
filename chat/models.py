@@ -15,4 +15,9 @@ class Message(models.Model):
 
     def last_10_messages(form, to):
         messages = Message.objects.order_by('timestamp').all()
-        return messages.filter(Q(recipient=form, contact=to) | Q(contact=form, recipient=to))
+        filterMessages = messages.filter(Q(recipient=form, contact=to) | Q(contact=form, recipient=to))
+        leng = len(filterMessages)
+        if leng<80:
+            return filterMessages
+        else:
+            return filterMessages[leng-50:]
