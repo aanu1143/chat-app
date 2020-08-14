@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 services:
     web:
         build:
@@ -16,7 +16,7 @@ services:
             context: .
             dockerfile: ./compose/nginx/Dockerfile
         volumes:
-            - static_volume:/home/ubuntu/staticfiles
+            - static_volume:/home/ubuntu/static
         ports:
             - 1337:80
         depends_on:
